@@ -1,0 +1,16 @@
+Crie um Router e classes adicionais para lidar com um arquivo web.php com rotas dinâmicas como esse:
+Use OOP, boas práticas, namespace, etc composer .env etc
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/category/list/{nameCategory}', [HomeController::class, 'list']);
+Route::get('/blog/', [HomeController::class, 'listBlogAllPosts']);
+Route::get('/blog/show/{title}/{id}', [HomeController::class, 'show']);
+Route::get('/admin/users', [UserController::class, 'index'])->middleware('admin')   ->name('admin.users');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('profile.update'); 
+
+composer require symfony/var-dumper --dev
