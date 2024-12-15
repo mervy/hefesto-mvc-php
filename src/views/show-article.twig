@@ -1,0 +1,20 @@
+{% extends 'templates/layout.twig' %}
+
+{% block content %}
+
+	{% include 'partials/header.twig' %}
+
+	<div class="container mt-5">
+		<h2>{{ article.title }}</h2>
+
+		<img src="{{ article.image }}" alt="{{ article.title }}" class="img-fluid float-left">
+		<p>
+			{{ article.content }}
+		</p>
+		<p>
+			<strong>Publicado em:</strong>
+			{{ article.created|date("d/m/Y") }}</p>
+	</h1>
+</div>
+
+{% include 'partials/footer.twig' %}{% endblock %}
