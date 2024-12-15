@@ -1,6 +1,5 @@
 <?php
 
-
 use Dotenv\Dotenv;
 use HefestoMVC\helpers\SessionHelper;
 
@@ -9,6 +8,8 @@ error_reporting(E_ALL);
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
+
+require __DIR__.'/../library/functions.php';
 
 SessionHelper::startSession();
 

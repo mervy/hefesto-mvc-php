@@ -32,16 +32,18 @@ class Router
                     // Criar um array para armazenar os valores dos parâmetros
                     $methodParams = [];
 
-                    // Percorrer os parâmetros da função e adicionar os valores ao array
                     foreach ($reflectionMethod->getParameters() as $param) {
-                        if (isset($params[$param->getName()])) {
-                            $methodParams[] = $params[$param->getName()];
-                        } elseif (!$param->isOptional()) {
-                            throw new Exception("Parâmetro não fornecido: " . $param->getName());
-                        } else {
+                        $paramName = $param->getName();
+                    
+                        if (array_key_exists($paramName, $params)) {
+                            $methodParams[] = $params[$paramName];
+                        } elseif ($param->isOptional()) {
                             $methodParams[] = $param->getDefaultValue();
+                        } else {
+                            throw new Exception("Parâmetro não fornecido: " . $paramName);
                         }
                     }
+                    
 
                     // Chamada da função com os parâmetros certos
                     return $controllerInstance->$method(...$methodParams);

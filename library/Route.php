@@ -51,14 +51,26 @@ class Route
         $baseUri = strtok($requestUri, '?');
         $pattern = preg_replace('/\{[^\}]+\}/', '([^/]+)', $this->uri);
         preg_match("#^{$pattern}$#", $baseUri, $matches);
-        array_shift($matches);
-       
+    
+        // Extrair os nomes dos parâmetros
+        preg_match_all('/\{([^\}]+)\}/', $this->uri, $paramNames);
+    
+        $params = [];
+        if (!empty($paramNames[1])) {
+            foreach ($paramNames[1] as $index => $name) {
+                $params[$name] = $matches[$index + 1] ?? null; // Ignorar o primeiro match (base URI)
+            }
+        }
+    
         // Inclui parâmetros da query string
         $queryString = [];
-        parse_str(parse_url($requestUri, PHP_URL_QUERY), $queryString);
-
-        return array_merge($matches, $queryString);
+        $query = parse_url($requestUri, PHP_URL_QUERY) ?? '';
+        parse_str($query, $queryString);
+    
+        return array_merge($params, $queryString);
     }
+    
+    
 
     public function getAction()
     {

@@ -13,7 +13,7 @@
 						<div class="card-body">
 							<h5 class="card-title">{{ article.title }}</h5>
 							<p class="card-text">{{ article.content[:100] }}...</p>
-							<a href="/show/{{ article.id }}" class="btn btn-primary">Read More</a>
+							<a href="/show/{{ article.title|slugify }}/{{ article.id }}" class="btn btn-primary">Read More</a>
 						</div>
 					</div>
 				</div>

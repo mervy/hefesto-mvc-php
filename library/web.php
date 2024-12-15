@@ -5,5 +5,5 @@ use HefestoMVCLibrary\Route;
 use HefestoMVC\controllers\HomeController;
 
 Route::get('/', [HomeController::class,'index']);
-Route::get('/articles', [HomeController::class,'articles']);
+Route::get('/show/{title}/{id}', [HomeController::class,'show']);
 Route::get('/articles/{id}', [HomeController::class,'articles']);

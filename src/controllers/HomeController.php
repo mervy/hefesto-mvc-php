@@ -53,11 +53,18 @@ class HomeController
         ]);
     }
 
-    public function show(string $title, int $id)
+    public function show($title, $id)
     {
         $article = $this->articleModel->find($id);
 
-        // Passar os dados do artigo para a view
-        View::render('article/show.twig', ['article' => $article]);
+        // Verifica se o artigo foi encontrado
+        if (!$article) {
+            http_response_code(404);
+            echo "Artigo não encontrado.";
+            return;
+        }
+    
+        // Passa os dados do artigo para a view
+        View::render('show-article.twig', ['article' => $article, 'title' => $title]);
     }
 }
